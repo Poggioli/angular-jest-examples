@@ -9,7 +9,7 @@ module.exports = {
     '^lodash-es$': 'lodash'
   },
   testMatch: [
-    '<rootDir>/src/**/*.spec.ts',
+    '<rootDir>/src/**/*.spec.ts'
   ],
   collectCoverage: false,
   collectCoverageFrom: [
@@ -23,4 +23,4 @@ module.exports = {
     '!**/environments/**',
     '!**/src/setupJest.ts'
   ]
-};
+}

@@ -1,0 +1,4 @@
+e2e/**/*.ts
+e2e/**/*.js
+src/polyfills.ts
+src/main.ts

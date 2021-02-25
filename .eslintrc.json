@@ -1,0 +1,51 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "jest": true
+    },
+    "extends": ["airbnb-base", "plugin:import/typescript"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "overrides": [
+      {
+        "files": [
+          "src/**/*.ts",
+          "src/**/*.tsx"
+        ]
+      }
+    ],
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "error",
+      "semi": ["error", "never"],
+      "quotes": [2, "single"],
+      "import/prefer-default-export": "off",
+      "comma-dangle": ["error", "never"],
+      "import/extensions": [
+        "error",
+        "ignorePackages",
+        {
+          "ts": "never"
+        }
+      ],
+      "no-useless-constructor": "warn",
+      "no-empty-function": ["error", { "allow": ["constructors"] }],
+      "class-methods-use-this": "off",
+      "max-classes-per-file": "off",
+      "max-len": [
+        "error", 
+        { 
+          "code": 120,
+          "comments": 70,
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true,
+          "ignorePattern": "^import\\s.+\\sfrom\\s.+;$"
+        }
+      ]
+    }
+  }

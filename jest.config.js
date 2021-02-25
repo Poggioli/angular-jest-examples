@@ -1,7 +1,26 @@
 module.exports = {
+  preset: 'jest-preset-angular',
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: [
+    '<rootDir>/setup-jest.ts'
+  ],
   moduleNameMapper: {
     '@core/(.*)': '<rootDir>/src/app/core/$1',
+    '^lodash-es$': 'lodash'
   },
-  preset: 'jest-preset-angular',
-  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+  testMatch: [
+    '<rootDir>/src/**/*.spec.ts',
+  ],
+  collectCoverage: false,
+  collectCoverageFrom: [
+    '**/src/**/*.ts',
+    '!**/node_modules/**',
+    '!**/e2e/**',
+    '!**/src/**/*.module.ts',
+    '!test/**',
+    '!**/polyfills.ts',
+    '!**/main.ts',
+    '!**/environments/**',
+    '!**/src/setupJest.ts'
+  ]
 };

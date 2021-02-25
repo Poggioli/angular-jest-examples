@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "jest --colors --coverage --bail",
+    "test": "jest --colors --coverage --bail --silent",
     "lint": "eslint . --fix",
     "e2e": "ng e2e"
   },
@@ -36,9 +36,11 @@
     "codelyzer": "^6.0.0",
     "eslint": "^7.20.0",
     "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.22.1",
     "jest": "26.6.3",
     "protractor": "~7.0.0",
+    "ts-jest": "^26.5.2",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.1.2"

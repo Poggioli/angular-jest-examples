@@ -2,6 +2,9 @@
     "eslint.validate": ["typescript", "typescriptreact"],
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
-    }
+    },
+    "eslint.workingDirectories": [
+      "./nextgen-treinamento-front"
+    ],
 }
   

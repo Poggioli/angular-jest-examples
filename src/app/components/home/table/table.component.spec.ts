@@ -1,6 +1,7 @@
-import { SimpleChanges } from '@angular/core'
+import { ChangeDetectionStrategy, SimpleChanges } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { MatTableModule } from '@angular/material/table'
+import { By } from '@angular/platform-browser'
 import { Vaccine } from '@interfaces/vaccine'
 
 import { TableComponent } from './table.component'
@@ -13,6 +14,8 @@ describe('TableComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [TableComponent],
       imports: [MatTableModule]
+    }).overrideComponent(TableComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     })
       .compileComponents()
   })
@@ -81,5 +84,98 @@ describe('TableComponent', () => {
     expect(component.vaccines).toStrictEqual(vaccines)
     expect(component.loading).toBe(false)
     expect(component.errorMessage).toBe('')
+  })
+
+  describe('Testes HTML', () => {
+    it(`DADO que a chamada ao serviço ainda não tenha terminado
+        QUANDO o componente for instanciado
+        ENTÃO deverá ter a mensagem de loading na tela`, () => {
+      const loadingElement = fixture.debugElement.query(By.css('h2'))
+      expect(loadingElement).toBeTruthy()
+      expect(loadingElement.nativeElement.textContent.trim()).toBe('Carregando Dados')
+      expect(component.loading).toBe(true)
+    })
+
+    it(`DADO que a chamada ao serviço tenha terminado
+        QUANDO o componente for instanciado
+        E o serviço retornou sucesso
+        ENTÃO deverá ter a tabela na tela`, () => {
+      expect(component.loading).toBe(true)
+
+      const vaccines: Vaccine[] = [
+        {
+          name: 'vaccine 1',
+          tip: 'tip 1',
+          doses: 1,
+          date: '05-21-2021'
+        }
+      ]
+
+      const simpleChanges: SimpleChanges = {
+        vaccines: {
+          currentValue: vaccines,
+          firstChange: false,
+          isFirstChange: undefined,
+          previousValue: undefined
+        },
+        loading: {
+          currentValue: false,
+          firstChange: false,
+          isFirstChange: undefined,
+          previousValue: undefined
+        },
+        errorMessage: {
+          currentValue: '',
+          firstChange: false,
+          isFirstChange: undefined,
+          previousValue: undefined
+        }
+      }
+
+      component.ngOnChanges(simpleChanges)
+      fixture.detectChanges()
+
+      expect(component.loading).toBe(false)
+
+      const tableElement = fixture.debugElement.query(By.css('table'))
+      expect(tableElement).toBeTruthy()
+    })
+
+    it(`DADO que a chamada ao serviço tenha terminado
+        QUANDO o componente for instanciado
+        E o serviço retornou sucesso
+        ENTÃO deverá ter a tabela na tela`, () => {
+      expect(component.loading).toBe(true)
+
+      const simpleChanges: SimpleChanges = {
+        vaccines: {
+          currentValue: [],
+          firstChange: false,
+          isFirstChange: undefined,
+          previousValue: undefined
+        },
+        loading: {
+          currentValue: false,
+          firstChange: false,
+          isFirstChange: undefined,
+          previousValue: undefined
+        },
+        errorMessage: {
+          currentValue: 'Ops, aconteceu algum erro',
+          firstChange: false,
+          isFirstChange: undefined,
+          previousValue: undefined
+        }
+      }
+
+      component.ngOnChanges(simpleChanges)
+      fixture.detectChanges()
+
+      expect(component.loading).toBe(false)
+
+      const errorElement = fixture.debugElement.query(By.css('h2'))
+      expect(errorElement).toBeTruthy()
+      expect(errorElement.nativeElement.textContent.trim()).toBe('Ops, aconteceu algum erro')
+    })
   })
 })

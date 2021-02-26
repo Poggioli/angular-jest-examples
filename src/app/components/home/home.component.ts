@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
         this.vaccines = this.orderByDate(resp)
       },
       () => {
+        this.vaccines = []
         this.errorMessage = 'Ops, aconteceu algum erro, tente novamente mais tarde'
       },
       () => {

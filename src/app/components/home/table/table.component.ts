@@ -23,14 +23,9 @@ export class TableComponent implements OnChanges {
   loading = true
 
   ngOnChanges(_simpleChanges: SimpleChanges): void {
-    this.vaccines = _simpleChanges.vaccines?.currentValue ? _simpleChanges.vaccines.currentValue : []
-    this.errorMessage = isDefined(_simpleChanges.errorMessage?.currentValue) ? _simpleChanges.errorMessage.currentValue : ''
-    if (isDefined(_simpleChanges.loading?.currentValue)) {
-      this.loading = _simpleChanges.loading.currentValue
-    } else {
-      this.loading = false
-      this.errorMessage = 'Ops, aconteceu algum erro, tente novamente mais tarde'
-    }
+    this.vaccines = _simpleChanges.vaccines.currentValue
+    this.errorMessage = _simpleChanges.errorMessage.currentValue
+    this.loading = _simpleChanges.loading.currentValue
   }
 
   hasError(): boolean {

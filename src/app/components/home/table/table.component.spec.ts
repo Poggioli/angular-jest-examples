@@ -21,7 +21,19 @@ describe('TableComponent', () => {
     fixture.detectChanges()
   })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it(`DADO que a chamada ao serviço tenha terminado
+      QUANDO houver algum erro
+      ENTÃO o método hasError deverá retornar true`, () => {
+    component.errorMessage = 'erro'
+    const expectedReturn = component.hasError()
+    expect(expectedReturn).toBe(true)
+  })
+
+  it(`DADO que a chamada ao serviço tenha terminado
+      QUANDO NÃO houver algum erro
+      ENTÃO o método hasError deverá retornar false`, () => {
+    component.errorMessage = ''
+    const expectedReturn = component.hasError()
+    expect(expectedReturn).toBe(false)
   })
 })

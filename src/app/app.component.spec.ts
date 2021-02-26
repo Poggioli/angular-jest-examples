@@ -1,31 +1,24 @@
 import { TestBed } from '@angular/core/testing'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { AppComponent } from './app.component'
+import { HomeModule } from './components/home/home.module'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent
+      ],
+      imports: [
+        HomeModule,
+        HttpClientTestingModule
       ]
     }).compileComponents()
   })
 
-  it('should create the app', () => {
+  it('DEVE criar a app', () => {
     const fixture = TestBed.createComponent(AppComponent)
     const app = fixture.componentInstance
     expect(app).toBeTruthy()
-  })
-
-  it('should have as title \'angular-jest-examples\'', () => {
-    const fixture = TestBed.createComponent(AppComponent)
-    const app = fixture.componentInstance
-    expect(app.title).toEqual('angular-jest-examples')
-  })
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent)
-    fixture.detectChanges()
-    const compiled = fixture.nativeElement
-    expect(compiled.querySelector('.content span').textContent).toContain('angular-jest-examples app is running!')
   })
 })

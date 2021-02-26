@@ -54,10 +54,16 @@
       "error", 
       { 
         "code": 120,
-        "comments": 70,
+        "comments": 100,
         "ignoreStrings": true,
         "ignoreTemplateLiterals": true,
         "ignorePattern": "^import\\s.+\\sfrom\\s.+;$"
+      }
+    ],
+    "no-underscore-dangle": [
+      "error", 
+      { 
+        "allowAfterThis": true 
       }
     ]
   }

@@ -7,6 +7,9 @@ module.exports = {
   moduleNameMapper: {
     '@core/(.*)': '<rootDir>/src/app/core/$1',
     '@env/(.*)': '<rootDir>/src/environments/$1',
+    '@services/(.*)': '<rootDir>/src/app/services/$1',
+    '@interfaces/(.*)': '<rootDir>/src/app/interfaces/$1',
+    '@utils/(.*)': '<rootDir>/src/app/utils/$1',
     '^lodash-es$': 'lodash'
   },
   testMatch: [

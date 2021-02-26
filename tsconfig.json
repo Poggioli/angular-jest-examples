@@ -17,7 +17,10 @@
       "dom"
     ],
     "paths": {
-      "@env/*": ["src/environments/*"]
+      "@env/*": ["src/environments/*"],
+      "@services/*": ["src/app/services/*"],
+      "@interfaces/*": ["src/app/interfaces/*"],
+      "@utils/*": ["src/app/utils/*"]
     },
     "esModuleInterop": true
   },

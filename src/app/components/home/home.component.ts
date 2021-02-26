@@ -22,18 +22,18 @@ export class HomeComponent implements OnInit {
 
   private getVaccines(): void {
     this.loading = true
-    this._vaccineService.getVaccines().subscribe(
-      (resp) => {
-        this.vaccines = this.orderByDate(resp)
-      },
-      () => {
-        this.vaccines = []
-        this.errorMessage = 'Ops, aconteceu algum erro, tente novamente mais tarde'
-      },
-      () => {
+    this.errorMessage = ''
+    this._vaccineService.getVaccines()
+      .subscribe(
+        (resp) => {
+          this.vaccines = this.orderByDate(resp)
+        }, () => {
+          this.vaccines = []
+          this.errorMessage = 'Ops, aconteceu algum erro, tente novamente mais tarde'
+        }
+      ).add(() => {
         this.loading = false
-      }
-    )
+      })
   }
 
   private orderByDate(vaccines: Vaccine[]): Vaccine[] {

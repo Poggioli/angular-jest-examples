@@ -1,54 +1,30 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { Vaccine } from '@interfaces/vaccine'
 import { VaccineService } from '@services/vaccine/vaccine.service'
-import { Observable, of } from 'rxjs'
+import { Observable, of, throwError } from 'rxjs'
 
 import { MockComponent } from 'ng-mocks'
 import { HomeComponent } from './home.component'
 import { TableComponent } from './table/table.component'
 
-class MockVaccineService {
-  httpBody: Vaccine[] = [
-    {
-      name: 'vaccine 1',
-      tip: 'tip 1',
-      doses: 1,
-      date: '05-21-2021'
-    },
-    {
-      name: 'vaccine 2',
-      tip: 'tip 2',
-      doses: 2,
-      date: '07-21-2021'
-    },
-    {
-      name: 'vaccine 3',
-      tip: 'tip 3',
-      doses: 3,
-      date: '05-14-2021'
-    },
-    {
-      name: 'vaccine 4',
-      tip: 'tip 4',
-      doses: 4,
-      date: '05-21-2021'
-    },
-    {
-      name: 'vaccine 5',
-      tip: 'tip 5',
-      doses: 5,
-      date: '10-21-2021'
-    },
-    {
-      name: 'vaccine 6',
-      tip: 'tip 6',
-      doses: 6,
-      date: '12-21-2021'
-    }
-  ]
+const vaccinesResponse: Vaccine[] = [
+  {
+    name: 'vaccine 1',
+    tip: 'tip 1',
+    doses: 1,
+    date: '05-21-2021'
+  },
+  {
+    name: 'vaccine 2',
+    tip: 'tip 2',
+    doses: 2,
+    date: '07-21-2021'
+  }
+]
 
+class MockVaccineService {
   getVaccines(): Observable<Vaccine[]> {
-    return of(this.httpBody)
+    return of(vaccinesResponse)
   }
 }
 
@@ -75,7 +51,26 @@ describe('HomeComponent', () => {
     fixture.detectChanges()
   })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it(`DADO o componente em tela
+      QUANDO o serviço retornar com sucesso
+      ENTÃO as variaveis deverão ter os valores corretos`, () => {
+    expect(component.vaccines).toStrictEqual(vaccinesResponse)
+    expect(component.loading).toBe(false)
+    expect(component.errorMessage).toBe('')
+  })
+
+  it(`DADO o componente em tela
+      QUANDO o serviço retornar com erro
+      ENTÃO as variaveis deverão ter os valores corretos`, () => {
+    const vaccineService: VaccineService = TestBed.inject(VaccineService)
+    spyOn(vaccineService, 'getVaccines').and.returnValue(throwError('error'))
+
+    fixture = TestBed.createComponent(HomeComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+
+    expect(component.vaccines).toStrictEqual([])
+    expect(component.loading).toBe(false)
+    expect(component.errorMessage).toBe('Ops, aconteceu algum erro, tente novamente mais tarde')
   })
 })
